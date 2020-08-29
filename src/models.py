@@ -4,7 +4,6 @@ from src.model_support import *
 
 def rmse(y_actual, y_predicted):
     """
-
     :param y_actual:
     :param y_predicted:
     :return:
@@ -32,17 +31,23 @@ def regression_test(runs, iters, inits, test, x_train, x_val, x_test, y_train, y
     features_dictionary = {}
     parameters_dictionary = {}
     final_result = {}
+    regressor_instance = {}
+    best_model_from_bo = {}
 
     for i in range(runs):
+
         try:
+
             print('\n===== RUN:', i, '=====', )
 
             if i == 0:
-                # run 0, first time regression, no feat sel
+
+                # Run 0, first time regression, no feat selection
                 regressor_instance = RegressorEvaluatorModule(x_train, x_val, x_test, y_train, y_val, y_test)
                 features_list = x_train.columns
 
             else:
+
                 # iterative feature sel, if run is not 0
                 print('**** started feature selection')
                 features_list = regressor_instance.feat_selector_module(best_model_from_bo)
@@ -60,12 +65,15 @@ def regression_test(runs, iters, inits, test, x_train, x_val, x_test, y_train, y
 
             # call optimizer, special case with pls because n_components can be lower than len(features)
             if test == 'pls_':
+
                 try:
+
                     bo = BayesianOptimization(regressor_object[test], param_space[test])
                     bo.maximize(n_iter=iters, init_points=inits)
 
-                except:
-                    # reducing n_components
+                except Exception as PLSException:
+
+                    # Reducing n_components
                     pls_space = {'n_components': (2, len(features_list) - 1)}
                     bo = BayesianOptimization(regressor_object[test], pls_space)
                     bo.maximize(n_iter=iters, init_points=inits)
@@ -74,17 +82,19 @@ def regression_test(runs, iters, inits, test, x_train, x_val, x_test, y_train, y
                 bo = BayesianOptimization(regressor_object[test], param_space[test])
                 bo.maximize(n_iter=iters, init_points=inits)
 
-            # extract best params from the bayesian optimizer
+            # Extract best params from the bayesian optimizer
             best_params_ = bo.max["params"]
             print('\n** Results from run **', )
 
-            # return model w best params
+            # Return model w best params
             best_model_from_bo = regressor_object[test](**best_params_, return_model=True,
                                                         print_res=True, exp_=test + str(i))
 
-            # if first run, lasso special case for coefficients
+            # If first run, lasso special case for coefficients
             if i == 0:
+
                 if test == 'lasso_':
+
                     print('\n********\ncoef')
 
                     lasso_coefficients_list = pd.Series(best_model_from_bo.coef_, name='coef',
@@ -100,7 +110,9 @@ def regression_test(runs, iters, inits, test, x_train, x_val, x_test, y_train, y
             parameters_dictionary.update({test + str(i): best_params_})
 
         except:
+
             pass
+
     final_result.update({test: results_dictionary, 'features': features_dictionary, 'params': parameters_dictionary})
 
     return final_result
@@ -159,13 +171,16 @@ class RegressorEvaluatorModule:
         """
 
         params = {'scale': True, 'n_components': int(n_components), 'max_iter': 1000}
+
         try:
+
             model = PLSRegression(**params)
             model.fit(self.X_train, self.y_train)
 
             validation_score, result = self.internal_validator(model, print_res)
 
-        except:
+        except Exception as PLSException:
+
             params = {'scale': True, 'n_components': int(n_components - 1), 'max_iter': 2000}
             model = PLSRegression(**params)
             model.fit(self.X_train, self.y_train)

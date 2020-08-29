@@ -1,13 +1,11 @@
 import sys
-import warnings
-sys.path.append('..')
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore")
-
 from src.model_support import *
 from src.models import regression_test
 from src.utils import *
 
+sys.path.append('..')
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':
 
@@ -21,7 +19,7 @@ if __name__ == '__main__':
             if predictive_set_key != 'fp' and preprocessing_decision is False:
 
                 # set X and y
-                X = SetXMatrix(predictive_dataset, predictive_set_key, preprocess=preprocessing_decision)
+                X = set_x_matrix(predictive_dataset, predictive_set_key, preprocess=preprocessing_decision)
                 y = df_log.logS0
 
                 for splitter_option in ['rand', 'pick']:
