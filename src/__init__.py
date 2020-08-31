@@ -1,18 +1,11 @@
-# Filter out warnings
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
-# basic imports
+# Basic imports
 import pandas as pd
 import numpy as np
 import time
 from math import sqrt
 import pickle
 
-import warnings
-with warnings.catch_warnings(): warnings.filterwarnings("ignore")
-
-# model imports
+# Model imports
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.linear_model import Lasso
@@ -35,10 +28,15 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, make_scorer
 from eli5.sklearn import PermutationImportance
 from eli5 import explain_weights_df
 
+# Filtering out warnings
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
-#data paths
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
+
+# Data paths
 data_folder = "../data/"
-target_path = data_folder + "sol_targets.csv"
+target_path = data_folder + "solubility_data.csv"
 fingerprint_path = data_folder + "fingerprints.csv"
-descriptor_path = data_folder + "descriptos.csv"
-
+descriptor_path = data_folder + "descriptors.csv"
