@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="eec31464-0150-42a1-ab0a-be6f8356ccd8" name="heat_sol_new" url="http://kcs-heat.know.know-center.at">
+        <fileTransfer host="kcs-heat.know.know-center.at" port="22" privateKey="C:\Users\mlovric\keys\dbs_calc.ppk" rootFolder="/home/mlovric/repo/sol_new" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

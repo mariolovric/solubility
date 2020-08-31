@@ -1,9 +1,12 @@
 import sys
 sys.path.append('..')
+
 from src.model_support import *
 from src.utils import *
 import warnings
-with warnings.catch_warnings(): warnings.filterwarnings("ignore")
+
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
 
 # winning model parameters
 # ==================
@@ -23,7 +26,7 @@ if __name__ == '__main__':
     df_log, df_fp, df_desc, df_all, predictive_dataset = load_data()
     train_pick, val_pick, test_pick, train_rand, test_rand = split_rand_pick(df_log, 'diversity', 'random')
 
-    X = SetXMatrix(predictive_dataset, predictive_set_key, preprocess=preproc_decision)
+    X = set_x_matrix(predictive_dataset, predictive_set_key, preprocess=preproc_decision)
     y = df_log.logS0
 
     X_train, X_val, X_ext, y_train, y_val, y_ext = return_sets(splitter_option, X, y, train_pick,
