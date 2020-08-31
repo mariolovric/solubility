@@ -7,7 +7,7 @@ The paper for this repo is published on doi.org/10.26434/chemrxiv.12746948.v1
     .
     ├── data                 # Data for modelling
     ├── results              # Results 
-    ├── scripts              # Automated tests and run as .py
+    ├── experiments              # Automated tests and run as .py
     ├── src                  # Source, models, tools, utilities
     ├── LICENSE
     └── README.md            # Brief repo description and installation recommendation
