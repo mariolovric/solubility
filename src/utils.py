@@ -99,8 +99,6 @@ def save_result(results_collector_dict: dict, predictive_set_key: str, splitter_
     """
     import pickle
 
-    with open(path + f'\
-            regressor_result_key-{predictive_set_key}_\
-            test-{splitter_option}_\
-            preprocess-{preprocessing_decision}.pickle', 'wb') as handle:
+    with open(path + f'regressor_result_key-{predictive_set_key}_test-{splitter_option}_preprocess-{preprocessing_decision}.pickle',
+              'wb') as handle:
         pickle.dump(results_collector_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)

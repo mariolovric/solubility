@@ -37,6 +37,6 @@ with warnings.catch_warnings():
 
 # Data paths
 data_folder = "../data/"
-target_path = data_folder + "sol_targets.csv"
+target_path = data_folder + "solubility_data.csv"
 fingerprint_path = data_folder + "fingerprints.csv"
 descriptor_path = data_folder + "descriptors.csv"

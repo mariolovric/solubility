@@ -1,9 +1,10 @@
 import sys
+sys.path.append('..')
 from src.model_support import *
-from src.models import regression_test
+from src.models import *
 from src.utils import *
 
-sys.path.append('..')
+
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore")
 
@@ -27,15 +28,17 @@ if __name__ == '__main__':
                     X_train, X_val, X_ext, y_train, y_val, y_ext = return_sets(splitter_option, X, y, train_pick,
                                                                                val_pick, test_pick, train_rand,
                                                                                test_rand)
+                    print(X_train.shape, X_val.shape, X_ext.shape, y_train.shape, y_val.shape, y_ext.shape)
 
                     # Random Forest
-                    test_rf = regression_test(5, 10, 50, 'rf_', X_train, X_val, X_ext, y_train, y_val, y_ext)
+                    test_rf = RegressorTest(1, 1, 1, 'rf_', X_train, X_val, X_ext, y_train, y_val, y_ext)
                     # PLS
-                    test_pls = regression_test(5, 5, 10, 'pls_', X_train, X_val, X_ext, y_train, y_val, y_ext)
+                    test_pls = RegressorTest(1, 1, 1, 'pls_', X_train, X_val, X_ext, y_train, y_val, y_ext)
                     # LASSO
-                    test_lasso = regression_test(1, 10, 40, 'lasso_', X_train, X_val, X_ext, y_train, y_val, y_ext)
+                    test_lasso = RegressorTest(1, 1, 1, 'lasso_', X_train, X_val, X_ext, y_train, y_val, y_ext)
                     # LightGBM
-                    test_lgbm = regression_test(5, 10, 50, 'lg_', X_train, X_val, X_ext, y_train, y_val, y_ext)
+                    test_lgbm = RegressorTest(1, 1, 1, 'lg_', X_train, X_val, X_ext, y_train, y_val, y_ext)
+                    #print(test_rf)
 
                     save_result({'LightGBM': test_lgbm,
                                  'LASSO': test_lasso,
@@ -44,4 +47,4 @@ if __name__ == '__main__':
                                 str(predictive_set_key),
                                 str(splitter_option),
                                 str(preprocessing_decision),
-                                path='../results_collector_dict/')
+                                path='../results/')
