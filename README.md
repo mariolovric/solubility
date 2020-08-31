@@ -1,6 +1,6 @@
 # Solubility prediction project
 
-The paper for this repo is published on doi.org/10.26434/chemrxiv.12746948.v1
+The paper for this repo is published on http://doi.org/10.26434/chemrxiv.12746948.v1
 
 ## Project structure
 
