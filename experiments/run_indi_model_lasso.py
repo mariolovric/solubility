@@ -16,6 +16,7 @@ with warnings.catch_warnings():
 
 predictive_set_key = 'all'
 splitter_option = 'rand'
+splitter_option = 'pca_split'
 preproc_decision = False
 random_seed = 42
 alpha = 0.0150523354781535
@@ -24,14 +25,20 @@ params = {'normalize': False, 'fit_intercept': False, 'max_iter': 1000,
 
 if __name__ == '__main__':
     df_log, df_fp, df_desc, df_all, predictive_dataset = load_data()
-    train_pick, val_pick, test_pick, train_rand, test_rand = split_rand_pick(df_log, 'diversity', 'random')
+    train_pick, val_pick, test_pick, train_rand, test_rand, train_pca, test_pca = split_rand_pick(df_log,
+                                                                                                  'diversity',
+                                                                                                  'random',
+                                                                                                  'pca_split')
 
     X = set_x_matrix(predictive_dataset, predictive_set_key, preprocess=preproc_decision)
     y = df_log.logS0
 
     X_train, X_val, X_ext, y_train, y_val, y_ext = return_sets(splitter_option, X, y, train_pick,
                                                                val_pick, test_pick, train_rand,
-                                                               test_rand)
+                                                               test_rand, train_pca, test_pca)
+
+    print('===============', X_train.shape, y_ext.shape)
+
     model = Lasso(**params)
     model.fit(X_train, y_train)
 
@@ -43,7 +50,9 @@ if __name__ == '__main__':
     train_score = np.sqrt(mean_squared_error(y_train, y_pred_train))
     test_score = np.sqrt(mean_squared_error(y_ext, y_pred_test))
 
+
     scores = {'Train': train_score, 'Validation': val_score, 'Test': test_score}
     print(scores)
+    exit()
     pd.Series(y_pred_test, index=y_ext.index, name='lasso').to_csv('../results/test_lasso_predicted.csv')
     y_ext.to_csv('../results/test_true.csv')

@@ -12,7 +12,10 @@ if __name__ == '__main__':
 
     # load data and set indices
     df_log, df_fp, df_desc, df_all, predictive_dataset = load_data()
-    train_pick, val_pick, test_pick, train_rand, test_rand = split_rand_pick(df_log, 'diversity', 'random')
+    train_pick, val_pick, test_pick, train_rand, test_rand, train_pca, test_pca = split_rand_pick(df_log,
+                                                                                                  'diversity',
+                                                                                                  'random',
+                                                                                                  'pca_split')
 
     # experimental matrix, data, preprocessing or not, splitting options
     for predictive_set_key in predictive_dataset.keys():
@@ -27,8 +30,10 @@ if __name__ == '__main__':
 
                     X_train, X_val, X_ext, y_train, y_val, y_ext = return_sets(splitter_option, X, y, train_pick,
                                                                                val_pick, test_pick, train_rand,
-                                                                               test_rand)
+                                                                               test_rand, train_pca, test_pca)
                     print(X_train.shape, X_val.shape, X_ext.shape, y_train.shape, y_val.shape, y_ext.shape)
+
+                    continue
 
                     # Random Forest
                     test_rf = RegressorTest(1, 1, 1, 'rf_', X_train, X_val, X_ext, y_train, y_val, y_ext)

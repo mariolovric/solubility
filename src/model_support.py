@@ -60,7 +60,7 @@ class PreprocessorClass:
     @staticmethod
     def kick_corr(in_df, corr_th=0.85):
         """
-        Removes correlated featurs above 0.9
+        Removes correlated featurs above 0.85
         :param in_df: Dataframe of features
         :param corr_th: Correlation Threshold
         :return: Dataframe without correlated features

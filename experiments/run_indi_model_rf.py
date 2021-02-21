@@ -23,7 +23,8 @@ features = ['Molecular_properties_AMR', 'Constitutional_indices_SCBO', 'Ring_des
             'Constitutional_indices_nC']
 
 predictive_set_key = 'all'
-splitter_option = 'rand'
+#splitter_option = 'rand'
+splitter_option = 'pca_split'
 preproc_decision = False
 random_seed = 42
 
@@ -32,13 +33,16 @@ params = {'bootstrap': True, 'max_depth': int(18.52203732903717), 'max_samples':
 
 if __name__ == '__main__':
     df_log, df_fp, df_desc, df_all, predictive_dataset = load_data()
-    train_pick, val_pick, test_pick, train_rand, test_rand = split_rand_pick(df_log, 'diversity', 'random')
+    train_pick, val_pick, test_pick, train_rand, test_rand, train_pca, test_pca = split_rand_pick(df_log,
+                                                                                                  'diversity',
+                                                                                                  'random',
+                                                                                                  'pca_split')
 
     X = set_x_matrix(predictive_dataset, predictive_set_key, preprocess=preproc_decision)
     y = df_log.logS0
     X_train, X_val, X_ext, y_train, y_val, y_ext = return_sets(splitter_option, X, y, train_pick,
                                                                val_pick, test_pick, train_rand,
-                                                               test_rand)
+                                                               test_rand, train_pca, test_pca)
 
     model = RandomForestRegressor(**params)
     model.fit(X_train[features], y_train)
@@ -53,4 +57,5 @@ if __name__ == '__main__':
 
     scores = {'Train': train_score, 'Validation': val_score, 'Test': test_score}
     print(scores)
+    exit()
     pd.Series(y_pred_test, index=y_ext.index, name='rf').to_csv('../results/test_rf_predicted.csv')
