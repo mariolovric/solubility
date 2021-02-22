@@ -23,8 +23,8 @@ features = ['Molecular_properties_AMR', 'Constitutional_indices_SCBO', 'Ring_des
             'Constitutional_indices_nC']
 
 predictive_set_key = 'all'
-#splitter_option = 'rand'
-splitter_option = 'pca_split'
+splitter_option = 'rand'
+#splitter_option = 'pca_split'
 preproc_decision = False
 random_seed = 42
 
@@ -57,5 +57,4 @@ if __name__ == '__main__':
 
     scores = {'Train': train_score, 'Validation': val_score, 'Test': test_score}
     print(scores)
-    exit()
     pd.Series(y_pred_test, index=y_ext.index, name='rf').to_csv('../results/test_rf_predicted.csv')

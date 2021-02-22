@@ -11,12 +11,12 @@ with warnings.catch_warnings():
 # winning model parameters
 # ==================
 # regressor_result_key-all_test-rand_preprocess-False.pickle
-# {'train_score': 0.4723311329495703, 'mean_score': 0.8299982962282464, 'validation_score': 0.9376601479621512,
-# 'test_score': 0.7223364444943414}
+# {'train_score': 0.662546, 'validation_score': 0.957961,
+# 'test_score': 0.696395}
 
 predictive_set_key = 'all'
 splitter_option = 'rand'
-splitter_option = 'pca_split'
+
 preproc_decision = False
 random_seed = 42
 alpha = 0.0150523354781535
@@ -41,7 +41,6 @@ if __name__ == '__main__':
 
     model = Lasso(**params)
     model.fit(X_train, y_train)
-
     y_pred_test = model.predict(X_ext)
     y_pred_train = model.predict(X_train)
     y_pred_val = model.predict(X_val)
@@ -53,6 +52,6 @@ if __name__ == '__main__':
 
     scores = {'Train': train_score, 'Validation': val_score, 'Test': test_score}
     print(scores)
-    exit()
+
     pd.Series(y_pred_test, index=y_ext.index, name='lasso').to_csv('../results/test_lasso_predicted.csv')
     y_ext.to_csv('../results/test_true.csv')
