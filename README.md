@@ -1,7 +1,7 @@
 # Solubility prediction project
 
-The paper for this repo is published on http://doi.org/10.26434/chemrxiv.12746948.v1
-Please cite the paper.
+The results generated using the code in this repository have been published in Journal of Chemometrics: https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/full/10.1002/cem.3349
+If used, please consider citing our paper.
 
 ## Project structure
 
@@ -54,13 +54,4 @@ The code is set up as follows:
 > `src/configs.py` 		   | Parameter space definitions for ML models
 > `src/models.py`  		   | Optimization and modelling modules
 > `src/model_support.py`   | Preprocessing routines
-> `src/utils.py`   		   | Auxiliary modules for data handling
-
-______________________________________________
-Installation recommendation:
-
-It is recommended to create a new conda environment. Conda should be pre-installed.
-In the conda terminal run following commands:
-`conda create -n env python=3.6 scikit-learn=0.22 numpy pandas jupyter`
-`conda install -c conda-forge imbalanced-learn bayesian-optimization eli5 ` 
-
+> `src/utils.py`   		   | Aux
