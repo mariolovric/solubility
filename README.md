@@ -1,7 +1,8 @@
 # Solubility prediction project
 
 The results generated using the code in this repository have been published in Journal of Chemometrics: https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/full/10.1002/cem.3349
-If used, please consider citing our paper.
+
+If you use the code/library in (other) projects, please consider citing our paper.
 
 ## Project structure
 
